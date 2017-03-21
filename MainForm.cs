@@ -20,20 +20,41 @@ namespace MazeGeneratorGUI
             InitializeComponent();
 
             maze = Maze.Instance;
-            maze.createEmtpyMaze(60, 60);
-            maze.generate();
+            maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
 
             mazePos = new Position(15, 15);
             mazeSize = new Position(600, 600);
+
+            generateTimer.Interval = 5;
+            generateTimer.Tick += new EventHandler(onGenerateTick);
+
+            generationSpeed.ValueChanged += GenerationSpeed_ValueChanged;
+            
 
             this.Paint += new System.Windows.Forms.PaintEventHandler(MainForm_Paint);
             this.DoubleBuffered = true;
         }
 
+        private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            generateTimer.Interval = (int)(sender as NumericUpDown).Value;
+        }
+
+        private void onGenerateTick(object sender, EventArgs e)
+        {
+            if (!maze.generated)
+            {
+                maze.generateOneStep();
+                this.Refresh();
+            }
+            else
+                generateTimer.Enabled = false;
+        }
+
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             float CellSize = (float)mazeSize.x / (float)maze.cols;
-            int lineWidth = 2;
+            int lineWidth = (int)lineW.Value;
             PointF cellPos = new PointF();
 
             using (Pen myPen = new Pen(System.Drawing.Color.Black, lineWidth))
@@ -58,6 +79,35 @@ namespace MazeGeneratorGUI
                         }
                     }
                 }
+
+                if (maze.stack.Count > 1)
+                {
+                    PointF[] path = maze.stack.ToArray();
+
+                    //myPen.Color = Color.Green;
+                    //myPen.Width = CellSize * 0.8f;
+
+                    //for (int i = 0;i < maze.stack.Count - 1;i++)
+                    //{
+                    //    PointF f = new PointF(mazePos.x + lineWidth + path[i].X * CellSize + CellSize / 2,
+                    //       mazePos.y + lineWidth + path[i].Y * CellSize + CellSize / 2);
+                    //    PointF s = new PointF(mazePos.x + lineWidth + path[i + 1].X * CellSize + CellSize / 2,
+                    //       mazePos.y + lineWidth + path[i + 1].Y * CellSize + CellSize / 2);
+                    //    e.Graphics.DrawLine(myPen, f, s);
+                    //}
+                    int index = 0;
+                    foreach (var pos in maze.stack)
+                    {
+                        path[index].X = mazePos.x + lineWidth + path[index].X * CellSize + CellSize / 2;
+                        path[index].Y = mazePos.y + lineWidth + path[index].Y * CellSize + CellSize / 2;
+                        index += 1;
+                    }
+
+                    myPen.Color = Color.Green;
+                    myPen.Width = CellSize * 0.8f;
+
+                    e.Graphics.DrawLines(myPen, path);
+                }
             }
 
         }
@@ -69,7 +119,17 @@ namespace MazeGeneratorGUI
 
         private void startGenerationButton_Click(object sender, EventArgs e)
         {
-            
+            if (maze.generated)
+            {
+                maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
+            }
+            if (visGen.Checked)
+                 generateTimer.Enabled = !generateTimer.Enabled;
+            else
+            {
+                maze.generate();
+                this.Refresh();
+            }
         }
     }
 }

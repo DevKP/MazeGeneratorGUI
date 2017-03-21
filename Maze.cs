@@ -4,6 +4,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MazeGeneratorGUI
 {
@@ -11,7 +12,12 @@ namespace MazeGeneratorGUI
     {
         private static Maze instance;
 
-        List<Cell> field;
+        private List<Cell> field;
+
+        public Stack<PointF> stack = new Stack<PointF>();
+        public PointF current = new PointF(0, 0);
+        public PointF next = new PointF();
+
         public int cols;
         public int rows;
         public bool generated { get; set; }
@@ -64,57 +70,68 @@ namespace MazeGeneratorGUI
                 return field[p.y * cols + p.x];
         }
 
+        public Cell getCell(PointF p)
+        {
+            if ((p.Y * cols + p.X) > field.Count - 1)
+                return null;
+            else
+                return field[(int)p.Y * cols + (int)p.X];
+        }
+
         public bool generate()
+        {
+            while(!this.generated)
+            {
+                this.generateOneStep();
+            }
+
+            return true;
+        }
+
+        public bool generateOneStep()
         {
             if (field == null)
             {
                 return false;
             }
 
-            Stack<Position> stack = new Stack<Position>();
-            Position current = new Position(0, 0);
-            Position next = new Position();
-
             getCell(current).visited = true;
 
-            while (true)
+            next = getNext(current);
+            if (next.X != -1f)
             {
-                next = getNext(current);
-                if (next != null)
-                {
-                    getCell(next).visited = true;
+                getCell(next).visited = true;
 
-                    stack.Push(current);
+                stack.Push(current);
 
-                    removeWalls(current, next);
+                removeWalls(current, next);
 
-                    current = next;
-                }
-                else if (stack.Count > 0)
-                {
-                    current = stack.Pop();
-                }
-                else
-                    break;
+                current = next;
+            }
+            else if (stack.Count > 0)
+            {
+                current = stack.Pop();
+            }
+            else
+            {
+                generated = true;
             }
 
-
-
-            generated = true;
+            
             return generated;
         }
 
-        private Position getNext(Position current)
+        private PointF getNext(PointF current)
         {
 
             RandomNumber rand = new RandomNumber();
 
-            List<Position> neighbors = new List<Position>();
+            List<PointF> neighbors = new List<PointF>();
 
-            Position top = new Position( current.x, current.y - 1 );
-            Position right = new Position(current.x + 1, current.y );
-            Position bottom = new Position(current.x, current.y + 1 );
-            Position left = new Position(current.x - 1, current.y );
+            PointF top = new PointF( current.X, current.Y - 1 );
+            PointF right = new PointF(current.X + 1, current.Y );
+            PointF bottom = new PointF(current.X, current.Y + 1 );
+            PointF left = new PointF(current.X - 1, current.Y );
 
 
             //check for valid coords and visit flag
@@ -148,22 +165,22 @@ namespace MazeGeneratorGUI
             }
             else
             {
-                return null;
+                return new PointF(-1f,-1f);
             }
         }
 
-        private bool coordsInMaze(Position p)
+        private bool coordsInMaze(PointF p)
         {
-            if (p.x < cols && p.y < rows)
-                if (p.x >= 0 && p.y >= 0)
+            if (p.X < cols && p.Y < rows)
+                if (p.X >= 0 && p.Y >= 0)
                     return true;
 
             return false;
         }
 
-        private void removeWalls(Position f, Position s)
+        private void removeWalls(PointF f, PointF s)
         {
-            int d = f.x - s.x;
+            int d = (int)f.X - (int)s.X;
             if (d > 0)
             {
                 getCell(s).right = false;
@@ -174,7 +191,7 @@ namespace MazeGeneratorGUI
                 getCell(f).right = false;
                 getCell(s).left = false;
             }
-            d = f.y - s.y;
+            d = (int)f.Y - (int)s.Y;
             if (d > 0)
             {
                 getCell(s).bottom = false;
