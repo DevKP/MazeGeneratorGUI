@@ -11,7 +11,7 @@ namespace MazeGeneratorGUI
     {
         private static Maze instance;
 
-        Cell[] field;
+        List<Cell> field;
         public int cols;
         public int rows;
         public bool generated { get; set; }
@@ -32,7 +32,10 @@ namespace MazeGeneratorGUI
 
         public void createEmtpyMaze(int h, int w)
         {
-            this.field = new Cell[w * h];
+            this.field = new List<Cell>(w * h);
+
+            for (int i = 0; i < w * h; i++)
+                this.field.Add(new Cell());
 
             this.rows = h;
             this.cols = w;
@@ -45,14 +48,20 @@ namespace MazeGeneratorGUI
             return true;
         }
 
-        private Cell getCell(int column, int row) //return cell from Column and Row indexes
+        public Cell getCell(int column, int row) //return cell from Column and Row indexes
         {
-            return field[row * cols + column];
+            if ((row * cols + column) > field.Count - 1)
+                return null;
+            else
+                return field[row * cols + column];
         }
 
-        private Cell getCell(Position p)
+        public Cell getCell(Position p)
         {
-            return field[p.y * cols + p.x];
+            if ((p.y * cols + p.x) > field.Count - 1)
+                return null;
+            else
+                return field[p.y * cols + p.x];
         }
 
         public bool generate()
@@ -98,7 +107,7 @@ namespace MazeGeneratorGUI
         private Position getNext(Position current)
         {
 
-            Random rnd = new Random();
+            RandomNumber rand = new RandomNumber();
 
             List<Position> neighbors = new List<Position>();
 
@@ -135,7 +144,7 @@ namespace MazeGeneratorGUI
 
             if (neighbors.Count > 0)
             {
-                return neighbors[rnd.Next(0,neighbors.Count - 1)];
+                return neighbors[rand.Next(neighbors.Count)];
             }
             else
             {

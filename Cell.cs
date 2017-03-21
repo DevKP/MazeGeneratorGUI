@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeGeneratorGUI
 {
- 
+
     class Cell
     {
         public Cell()
@@ -35,36 +35,28 @@ namespace MazeGeneratorGUI
             this.y = _y;
         }
         public Position() { }
-
-        public static bool operator==(Position pos1, Position pos2)
+        public override bool Equals(System.Object obj)
         {
-            if(pos1.x == pos2.x && pos1.y == pos2.y)
-            {
-                return true;
-            }
-            else
+            if (obj == null)
             {
                 return false;
             }
+
+            Position p = obj as Position;
+            if (p == null)
+            {
+                return false;
+            }
+
+            return (x == p.x) && (y == p.y);
         }
 
-        public static bool operator!=(Position pos1, Position pos2)
+        public override int GetHashCode()
         {
-            if (pos1.x == pos2.x)
-            {
-                return false;
-            }
-
-            if (pos1.y == pos2.y)
-            {
-                return false;
-            }
-            return true;
+            return x ^ y;
         }
 
         public int x;
         public int y;
     }
-
-
 }
