@@ -41,8 +41,8 @@ namespace MazeGeneratorGUI
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
 
-            mazePos = new Position(0, 0);
-            mazeSize = new Position(mazeBox.Size.Height, mazeBox.Size.Width);
+            mazePos = new Position((int)lineW.Value, (int)lineW.Value);
+            mazeSize = new Position(mazeBox.Size.Height - (int)lineW.Value*2, mazeBox.Size.Width - (int)lineW.Value * 2);
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -81,24 +81,24 @@ namespace MazeGeneratorGUI
             float CellSize;
             if (mazeSize.x > mazeSize.y)
             {
-                CellSize = (float)mazeSize.x / (float)maze.cols;
+                CellSize = ((float)mazeSize.x / (float)maze.cols);
             }
             else
             {
-                CellSize = (float)mazeSize.y / (float)maze.rows;
+                CellSize = ((float)mazeSize.y / (float)maze.rows) ;
             }
 
             using (Pen myPen = new Pen(Color.Black, lineWidth))
             {
-                e.Graphics.DrawLine(myPen, mazePos.x + lineWidth, mazePos.y + lineWidth, mazePos.x + lineWidth, maze.rows * CellSize + mazePos.y + lineWidth);
-                e.Graphics.DrawLine(myPen, mazePos.x + lineWidth, mazePos.y + lineWidth, maze.cols * CellSize + mazePos.x + lineWidth, mazePos.y + lineWidth);
+                e.Graphics.DrawLine(myPen, mazePos.x, mazePos.y, mazePos.x, maze.rows * CellSize + mazePos.y);
+                e.Graphics.DrawLine(myPen, mazePos.x, mazePos.y, maze.cols * CellSize + mazePos.x , mazePos.y);
 
                 for (int h = 0; h < maze.rows; h++)
                 {
                     for (int w = 0; w < maze.cols; w++)
                     {
-                        cellPos.X = mazePos.x + (w * CellSize) + lineWidth;
-                        cellPos.Y = mazePos.y + (h * CellSize) + lineWidth;
+                        cellPos.X = mazePos.x + (w * CellSize);
+                        cellPos.Y = mazePos.y + (h * CellSize);
 
                         if (maze.getCell(w, h).bottom)
                         {
