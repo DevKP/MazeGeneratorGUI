@@ -14,6 +14,8 @@ namespace MazeGeneratorGUI
     public partial class MainForm : Form
     {
         Maze maze;
+        Bitmap mazeBitmap;
+
         PointF mazePos;
         PointF mazeSize;
         public MainForm()
@@ -21,6 +23,9 @@ namespace MazeGeneratorGUI
             InitializeComponent();
             maze = Maze.Instance;
             maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
+
+            mazeBitmap = new Bitmap(mazeBox.Size.Height, mazeBox.Size.Width);
+            mazeBox.Image = mazeBitmap;
 
             generateTimer.Interval = 5;
             generateTimer.Tick += onGenerateTick;
@@ -33,19 +38,23 @@ namespace MazeGeneratorGUI
             
 
             //this.Paint += new PaintEventHandler(MainForm_Paint);
-            mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
+            //mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
 
             mazePos = new PointF(0, 0);
             mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value*2, mazeBox.Size.Width-(int)lineW.Value*2);
+            //mazeSize = new PointF(10000 - (int)lineW.Value * 2, 10000 - (int)lineW.Value * 2);
+
+            drawMaze();
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
         {
-            refreshTimer.Interval = (int)refreshTimeout.Value;
+            refreshTimer.Interval = (int)(sender as NumericUpDown).Value;
         }
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
+            drawMaze();
             mazeBox.Refresh();
         }
 
@@ -60,15 +69,17 @@ namespace MazeGeneratorGUI
             {
                 for (int i = 0; i < iterOption.Value; i++)
                     maze.generateOneStep();
+                progressBar1.Value = maze.visitedCells / (maze.CellCount / 100);
             }
             else
             {
+                progressBar1.Value = 100;
                 generateTimer.Enabled = false;
                 refreshTimer.Enabled = false;
             }
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
+        private void drawMaze()
         {
             int lineWidth = (int)lineW.Value;
             PointF cellPos = new PointF();
@@ -83,6 +94,11 @@ namespace MazeGeneratorGUI
                 CellSize = (mazeSize.Y / maze.cols);
             }
 
+            Graphics g;
+            g = Graphics.FromImage(mazeBitmap);
+
+            g.Clear(Color.White);
+
             using (Pen myPen = new Pen(colorDialog1.Color, lineWidth))
             {
                 SizeF fieldsize = new SizeF(CellSize * maze.cols, 
@@ -94,8 +110,8 @@ namespace MazeGeneratorGUI
                 PointF border1 = new PointF(mazePos.X,                   mazePos.Y + fieldsize.Height);
                 PointF border2 = new PointF(mazePos.X + fieldsize.Width, mazePos.Y);
 
-                e.Graphics.DrawLine(myPen, mazePos + centering, border1 + centering);
-                e.Graphics.DrawLine(myPen, mazePos + centering, border2 + centering);
+                g.DrawLine(myPen, mazePos + centering, border1 + centering);
+                g.DrawLine(myPen, mazePos + centering, border2 + centering);
 
                 for (int h = 0; h < maze.rows; h++)
                 {
@@ -109,20 +125,22 @@ namespace MazeGeneratorGUI
                                                      cellPos.Y + CellSize);
 
 
-                      
 
 
-                        if (maze.getCell(w, h).bottom)
+                        if (maze.getCell(w, h).visited)
                         {
-                            PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
+                            if (maze.getCell(w, h).bottom)
+                            {
+                                PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
 
-                            e.Graphics.DrawLine(myPen, RBCorner, BottomWall);
-                        }
-                        if (maze.getCell(w, h).right)
-                        {
-                            PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
+                                g.DrawLine(myPen, RBCorner, BottomWall);
+                            }
+                            if (maze.getCell(w, h).right)
+                            {
+                                PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
 
-                            e.Graphics.DrawLine(myPen, RBCorner, RightWall);
+                                g.DrawLine(myPen, RBCorner, RightWall);
+                            }
                         }
 
                         if(visitOption.Checked)
@@ -130,7 +148,7 @@ namespace MazeGeneratorGUI
                             {
                                 myPen.Color = Color.Red;
                                 System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange);
-                                e.Graphics.FillRectangle(myBrush, new Rectangle((int)cellPos.X, (int)cellPos.Y, (int)CellSize + lineWidth, (int)CellSize + lineWidth));
+                                g.FillRectangle(myBrush, new Rectangle((int)cellPos.X, (int)cellPos.Y, (int)CellSize + lineWidth, (int)CellSize + lineWidth));
                                 myPen.Color = colorDialog1.Color;
                             }
                     }
@@ -153,10 +171,10 @@ namespace MazeGeneratorGUI
                     myPen.Color = colorDialog2.Color;
                     myPen.Width = CellSize * ((float)pathSizeOption.Value / 100);
 
-                    e.Graphics.DrawLines(myPen, path);
+                    g.DrawLines(myPen, path);
                 }
             }
-
+            g.Dispose();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -178,6 +196,7 @@ namespace MazeGeneratorGUI
             else
             {
                 maze.generate();
+                drawMaze();
                 mazeBox.Refresh();
             }
         }
@@ -185,13 +204,21 @@ namespace MazeGeneratorGUI
         private void WallsBtn_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
+            drawMaze();
             mazeBox.Refresh();
         }
 
         private void PathColorBtn_Click(object sender, EventArgs e)
         {
             colorDialog2.ShowDialog();
+            drawMaze();
             mazeBox.Refresh();
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog();
+            mazeBox.Image.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
         }
     }
 }

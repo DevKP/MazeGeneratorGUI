@@ -58,6 +58,9 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.visitOption = new System.Windows.Forms.CheckBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.saveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -376,6 +379,7 @@
             this.mazeBox.Location = new System.Drawing.Point(13, 16);
             this.mazeBox.Name = "mazeBox";
             this.mazeBox.Size = new System.Drawing.Size(575, 575);
+            this.mazeBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
             // 
@@ -393,15 +397,36 @@
             this.visitOption.Text = "Show cells to visit";
             this.visitOption.UseVisualStyleBackColor = true;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(708, 567);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Step = 1;
+            this.progressBar1.TabIndex = 11;
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Location = new System.Drawing.Point(785, 141);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.TabIndex = 12;
+            this.saveBtn.Text = "Save";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 628);
+            this.Controls.Add(this.saveBtn);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.mazeGroup);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.startGenerationButton);
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Tag = "";
             this.Text = "Maze Generator";
@@ -454,6 +479,9 @@
         private System.Windows.Forms.Button PathColorBtn;
         private System.Windows.Forms.ColorDialog colorDialog2;
         private System.Windows.Forms.CheckBox visitOption;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button saveBtn;
     }
 }
 

@@ -20,6 +20,12 @@ namespace MazeGeneratorGUI
 
         public int cols;
         public int rows;
+        private int _visitedcells;
+        public int visitedCells
+        {
+            get { return _visitedcells; }
+        }
+        public int CellCount { get { return cols * rows; } }
         public bool generated { get; set; }
 
 
@@ -47,6 +53,7 @@ namespace MazeGeneratorGUI
             this.cols = w;
 
             this.generated = false;
+            this._visitedcells = 0;
         }
 
         public bool draw(Position current)
@@ -101,6 +108,8 @@ namespace MazeGeneratorGUI
             if (next.X != -1f)
             {
                 getCell(next).visited = true;
+
+                this._visitedcells += 1;
 
                 stack.Push(current);
 
