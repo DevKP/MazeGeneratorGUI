@@ -3,3 +3,10 @@
 ################################################################################
 
 /obj/Release
+/obj/Debug
+/bin/Release
+/bin
+/obj/Debug
+/obj/Debug/CoreCompileInputs.cache
+/.vs/MazeGeneratorGUI
+/bin

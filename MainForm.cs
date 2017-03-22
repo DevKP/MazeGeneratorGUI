@@ -26,13 +26,27 @@ namespace MazeGeneratorGUI
             mazeSize = new Position(600, 600);
 
             generateTimer.Interval = 5;
-            generateTimer.Tick += new EventHandler(onGenerateTick);
+            generateTimer.Tick += onGenerateTick;
+
+            refreshTimer.Interval = (int)refreshTimeout.Value;
+            refreshTimer.Tick += RefreshTimer_Tick;
 
             generationSpeed.ValueChanged += GenerationSpeed_ValueChanged;
+            refreshTimeout.ValueChanged += RefreshTimeout_ValueChanged;
             
 
             this.Paint += new System.Windows.Forms.PaintEventHandler(MainForm_Paint);
             this.DoubleBuffered = true;
+        }
+
+        private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            refreshTimer.Interval = (int)refreshTimeout.Value;
+        }
+
+        private void RefreshTimer_Tick(object sender, EventArgs e)
+        {
+            this.Refresh();
         }
 
         private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
@@ -45,10 +59,12 @@ namespace MazeGeneratorGUI
             if (!maze.generated)
             {
                 maze.generateOneStep();
-                this.Refresh();
             }
             else
+            {
                 generateTimer.Enabled = false;
+                refreshTimer.Enabled = false;
+            }
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
@@ -124,7 +140,10 @@ namespace MazeGeneratorGUI
                 maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
             }
             if (visGen.Checked)
-                 generateTimer.Enabled = !generateTimer.Enabled;
+            {
+                generateTimer.Enabled = !generateTimer.Enabled;
+                refreshTimer.Enabled = !refreshTimer.Enabled;
+            }
             else
             {
                 maze.generate();

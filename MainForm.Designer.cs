@@ -36,10 +36,13 @@
             this.lineW = new System.Windows.Forms.NumericUpDown();
             this.mazeW = new System.Windows.Forms.NumericUpDown();
             this.mazeH = new System.Windows.Forms.NumericUpDown();
+            this.refreshTimeout = new System.Windows.Forms.NumericUpDown();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // startGenerationButton
@@ -59,7 +62,7 @@
             0,
             0,
             0});
-            this.generationSpeed.Location = new System.Drawing.Point(908, 536);
+            this.generationSpeed.Location = new System.Drawing.Point(908, 510);
             this.generationSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -91,7 +94,7 @@
             // 
             // lineW
             // 
-            this.lineW.Location = new System.Drawing.Point(908, 510);
+            this.lineW.Location = new System.Drawing.Point(908, 484);
             this.lineW.Name = "lineW";
             this.lineW.Size = new System.Drawing.Size(120, 20);
             this.lineW.TabIndex = 4;
@@ -135,11 +138,39 @@
             0,
             0});
             // 
+            // refreshTimeout
+            // 
+            this.refreshTimeout.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.refreshTimeout.Location = new System.Drawing.Point(908, 536);
+            this.refreshTimeout.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.refreshTimeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.refreshTimeout.Name = "refreshTimeout";
+            this.refreshTimeout.Size = new System.Drawing.Size(120, 20);
+            this.refreshTimeout.TabIndex = 7;
+            this.refreshTimeout.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1078, 628);
+            this.Controls.Add(this.refreshTimeout);
             this.Controls.Add(this.mazeH);
             this.Controls.Add(this.mazeW);
             this.Controls.Add(this.lineW);
@@ -153,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshTimeout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,6 +199,8 @@
         private System.Windows.Forms.NumericUpDown lineW;
         private System.Windows.Forms.NumericUpDown mazeW;
         private System.Windows.Forms.NumericUpDown mazeH;
+        private System.Windows.Forms.NumericUpDown refreshTimeout;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }
 
