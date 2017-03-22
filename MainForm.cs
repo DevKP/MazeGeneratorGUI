@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,11 +20,13 @@ namespace MazeGeneratorGUI
         {
             InitializeComponent();
 
+            //this.DoubleBuffered = true;
+           // typeof(GroupBox).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
+           //| BindingFlags.Instance | BindingFlags.NonPublic, null,
+           //mazeBox, new object[] { true });
+
             maze = Maze.Instance;
             maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
-
-            mazePos = new Position(15, 15);
-            mazeSize = new Position(600, 600);
 
             generateTimer.Interval = 5;
             generateTimer.Tick += onGenerateTick;
@@ -35,8 +38,11 @@ namespace MazeGeneratorGUI
             refreshTimeout.ValueChanged += RefreshTimeout_ValueChanged;
             
 
-            this.Paint += new System.Windows.Forms.PaintEventHandler(MainForm_Paint);
-            this.DoubleBuffered = true;
+            //this.Paint += new PaintEventHandler(MainForm_Paint);
+            mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
+
+            mazePos = new Position(0, 0);
+            mazeSize = new Position(mazeBox.Size.Height, mazeBox.Size.Width);
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -46,7 +52,7 @@ namespace MazeGeneratorGUI
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            this.Refresh();
+            mazeBox.Refresh();
         }
 
         private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
@@ -69,11 +75,20 @@ namespace MazeGeneratorGUI
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
-            float CellSize = (float)mazeSize.x / (float)maze.cols;
             int lineWidth = (int)lineW.Value;
             PointF cellPos = new PointF();
 
-            using (Pen myPen = new Pen(System.Drawing.Color.Black, lineWidth))
+            float CellSize;
+            if (mazeSize.x > mazeSize.y)
+            {
+                CellSize = (float)mazeSize.x / (float)maze.cols;
+            }
+            else
+            {
+                CellSize = (float)mazeSize.y / (float)maze.rows;
+            }
+
+            using (Pen myPen = new Pen(Color.Black, lineWidth))
             {
                 e.Graphics.DrawLine(myPen, mazePos.x + lineWidth, mazePos.y + lineWidth, mazePos.x + lineWidth, maze.rows * CellSize + mazePos.y + lineWidth);
                 e.Graphics.DrawLine(myPen, mazePos.x + lineWidth, mazePos.y + lineWidth, maze.cols * CellSize + mazePos.x + lineWidth, mazePos.y + lineWidth);
@@ -82,8 +97,8 @@ namespace MazeGeneratorGUI
                 {
                     for (int w = 0; w < maze.cols; w++)
                     {
-                        cellPos.X = w * CellSize + lineWidth + mazePos.x;
-                        cellPos.Y = h * CellSize + lineWidth + mazePos.y;
+                        cellPos.X = mazePos.x + (w * CellSize) + lineWidth;
+                        cellPos.Y = mazePos.y + (h * CellSize) + lineWidth;
 
                         if (maze.getCell(w, h).bottom)
                         {
@@ -147,7 +162,7 @@ namespace MazeGeneratorGUI
             else
             {
                 maze.generate();
-                this.Refresh();
+                mazeBox.Refresh();
             }
         }
     }
