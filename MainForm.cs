@@ -129,13 +129,13 @@ namespace MazeGeneratorGUI
                     int index = 0;
                     foreach (var pos in maze.stack)
                     {
-                        path[index].X = mazePos.x + lineWidth + path[index].X * CellSize + CellSize / 2;
-                        path[index].Y = mazePos.y + lineWidth + path[index].Y * CellSize + CellSize / 2;
+                        path[index].X = mazePos.x + path[index].X * CellSize + CellSize / 2;
+                        path[index].Y = mazePos.y + path[index].Y * CellSize + CellSize / 2;
                         index += 1;
                     }
 
                     myPen.Color = Color.Green;
-                    myPen.Width = CellSize * 0.8f;
+                    myPen.Width = CellSize * ((float)pathSizeOption.Value / 100);
 
                     e.Graphics.DrawLines(myPen, path);
                 }

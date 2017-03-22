@@ -47,6 +47,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.mazeGroup = new System.Windows.Forms.GroupBox();
             this.mazeBox = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pathSizeOption = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -56,6 +58,7 @@
             this.groupBox2.SuspendLayout();
             this.mazeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).BeginInit();
             this.SuspendLayout();
             // 
             // startGenerationButton
@@ -185,7 +188,7 @@
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 283);
+            this.groupBox1.Location = new System.Drawing.Point(628, 237);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(258, 129);
             this.groupBox1.TabIndex = 8;
@@ -212,15 +215,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.pathSizeOption);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.lineW);
             this.groupBox2.Controls.Add(this.mazeH);
             this.groupBox2.Controls.Add(this.mazeW);
-            this.groupBox2.Location = new System.Drawing.Point(628, 418);
+            this.groupBox2.Location = new System.Drawing.Point(628, 372);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 125);
+            this.groupBox2.Size = new System.Drawing.Size(258, 171);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Maze Settings";
@@ -270,6 +275,37 @@
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 116);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Path thickness (%)";
+            // 
+            // pathSizeOption
+            // 
+            this.pathSizeOption.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pathSizeOption.Location = new System.Drawing.Point(129, 114);
+            this.pathSizeOption.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.pathSizeOption.Name = "pathSizeOption";
+            this.pathSizeOption.Size = new System.Drawing.Size(120, 20);
+            this.pathSizeOption.TabIndex = 13;
+            this.pathSizeOption.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,6 +329,7 @@
             this.groupBox2.PerformLayout();
             this.mazeGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -317,6 +354,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox mazeGroup;
         private System.Windows.Forms.PictureBox mazeBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown pathSizeOption;
     }
 }
 
