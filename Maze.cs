@@ -52,6 +52,8 @@ namespace MazeGeneratorGUI
             this.rows = h;
             this.cols = w;
 
+            this.stack.Clear();
+            this.current = new PointF();
             this.generated = false;
             this._visitedcells = 0;
         }

@@ -27,7 +27,7 @@ namespace MazeGeneratorGUI
             mazeBitmap = new Bitmap(mazeBox.Size.Height, mazeBox.Size.Width);
             mazeBox.Image = mazeBitmap;
 
-            generateTimer.Interval = 5;
+            generateTimer.Interval = (int)generationSpeed.Value;
             generateTimer.Tick += onGenerateTick;
 
             refreshTimer.Interval = (int)refreshTimeout.Value;
@@ -70,10 +70,12 @@ namespace MazeGeneratorGUI
                 for (int i = 0; i < iterOption.Value; i++)
                     maze.generateOneStep();
                 progressBar1.Value = maze.visitedCells / (maze.CellCount / 100);
+                procentsLabel.Text = progressBar1.Value.ToString() + "%";
             }
             else
             {
                 progressBar1.Value = 100;
+                procentsLabel.Text = progressBar1.Value.ToString() + "%";
                 generateTimer.Enabled = false;
                 refreshTimer.Enabled = false;
             }
@@ -121,13 +123,12 @@ namespace MazeGeneratorGUI
                         cellPos.Y = h * CellSize;
                         cellPos += centering;
 
-                        PointF RBCorner = new PointF(cellPos.X + CellSize, 
+                        PointF RBCorner = new PointF(cellPos.X + CellSize,
                                                      cellPos.Y + CellSize);
 
 
 
-
-                        if (maze.getCell(w, h).visited)
+                        if (semptyOption.Checked)
                         {
                             if (maze.getCell(w, h).bottom)
                             {
@@ -142,8 +143,28 @@ namespace MazeGeneratorGUI
                                 g.DrawLine(myPen, RBCorner, RightWall);
                             }
                         }
+                        else
+                        {
+                            if (maze.getCell(w, h).visited)
+                            {
+                                if (maze.getCell(w, h).bottom)
+                                {
+                                    PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
 
-                        if(visitOption.Checked)
+                                    g.DrawLine(myPen, RBCorner, BottomWall);
+                                }
+                                if (maze.getCell(w, h).right)
+                                {
+                                    PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
+
+                                    g.DrawLine(myPen, RBCorner, RightWall);
+                                }
+                            }
+                        }
+
+
+
+                        if (visitOption.Checked)
                             if (!maze.getCell(w, h).visited)
                             {
                                 myPen.Color = Color.Red;
@@ -219,6 +240,13 @@ namespace MazeGeneratorGUI
         {
             saveFileDialog1.ShowDialog();
             mazeBox.Image.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        private void resetBtn_Click(object sender, EventArgs e)
+        {
+            maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
+            drawMaze();
+            mazeBox.Refresh();
         }
     }
 }

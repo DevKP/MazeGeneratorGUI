@@ -61,6 +61,9 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveBtn = new System.Windows.Forms.Button();
+            this.semptyOption = new System.Windows.Forms.CheckBox();
+            this.resetBtn = new System.Windows.Forms.Button();
+            this.procentsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -101,7 +104,7 @@
             this.generationSpeed.Size = new System.Drawing.Size(120, 20);
             this.generationSpeed.TabIndex = 1;
             this.generationSpeed.Value = new decimal(new int[] {
-            50,
+            5,
             0,
             0,
             0});
@@ -181,13 +184,14 @@
             this.refreshTimeout.Size = new System.Drawing.Size(120, 20);
             this.refreshTimeout.TabIndex = 7;
             this.refreshTimeout.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.semptyOption);
             this.groupBox1.Controls.Add(this.visitOption);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.iterOption);
@@ -196,9 +200,9 @@
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 170);
+            this.groupBox1.Location = new System.Drawing.Point(628, 130);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(258, 153);
+            this.groupBox1.Size = new System.Drawing.Size(258, 174);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Screen Update";
@@ -229,7 +233,7 @@
             this.iterOption.Size = new System.Drawing.Size(120, 20);
             this.iterOption.TabIndex = 10;
             this.iterOption.Value = new decimal(new int[] {
-            3,
+            2,
             0,
             0,
             0});
@@ -407,7 +411,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(785, 141);
+            this.saveBtn.Location = new System.Drawing.Point(811, 44);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 12;
@@ -415,11 +419,44 @@
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
+            // semptyOption
+            // 
+            this.semptyOption.AutoSize = true;
+            this.semptyOption.Checked = true;
+            this.semptyOption.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.semptyOption.Location = new System.Drawing.Point(123, 151);
+            this.semptyOption.Name = "semptyOption";
+            this.semptyOption.Size = new System.Drawing.Size(84, 17);
+            this.semptyOption.TabIndex = 13;
+            this.semptyOption.Text = "Show empty";
+            this.semptyOption.UseVisualStyleBackColor = true;
+            // 
+            // resetBtn
+            // 
+            this.resetBtn.Location = new System.Drawing.Point(834, 591);
+            this.resetBtn.Name = "resetBtn";
+            this.resetBtn.Size = new System.Drawing.Size(31, 28);
+            this.resetBtn.TabIndex = 13;
+            this.resetBtn.Text = "X";
+            this.resetBtn.UseVisualStyleBackColor = true;
+            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
+            // 
+            // procentsLabel
+            // 
+            this.procentsLabel.AutoSize = true;
+            this.procentsLabel.Location = new System.Drawing.Point(813, 573);
+            this.procentsLabel.Name = "procentsLabel";
+            this.procentsLabel.Size = new System.Drawing.Size(21, 13);
+            this.procentsLabel.TabIndex = 14;
+            this.procentsLabel.Text = "0%";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 628);
+            this.Controls.Add(this.procentsLabel);
+            this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.mazeGroup);
@@ -445,6 +482,7 @@
             this.mazeGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -482,6 +520,9 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button saveBtn;
+        private System.Windows.Forms.CheckBox semptyOption;
+        private System.Windows.Forms.Button resetBtn;
+        private System.Windows.Forms.Label procentsLabel;
     }
 }
 
