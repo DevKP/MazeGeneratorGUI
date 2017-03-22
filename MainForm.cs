@@ -108,6 +108,10 @@ namespace MazeGeneratorGUI
                         PointF RBCorner = new PointF(cellPos.X + CellSize, 
                                                      cellPos.Y + CellSize);
 
+
+                      
+
+
                         if (maze.getCell(w, h).bottom)
                         {
                             PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
@@ -120,6 +124,15 @@ namespace MazeGeneratorGUI
 
                             e.Graphics.DrawLine(myPen, RBCorner, RightWall);
                         }
+
+                        if(visitOption.Checked)
+                            if (!maze.getCell(w, h).visited)
+                            {
+                                myPen.Color = Color.Red;
+                                System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange);
+                                e.Graphics.FillRectangle(myBrush, new Rectangle((int)cellPos.X, (int)cellPos.Y, (int)CellSize + lineWidth, (int)CellSize + lineWidth));
+                                myPen.Color = colorDialog1.Color;
+                            }
                     }
                 }
 

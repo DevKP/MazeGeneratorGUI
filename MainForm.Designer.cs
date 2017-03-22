@@ -57,6 +57,7 @@
             this.mazeBox = new System.Windows.Forms.PictureBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
+            this.visitOption = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -184,6 +185,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.visitOption);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.iterOption);
             this.groupBox1.Controls.Add(this.label2);
@@ -377,6 +379,20 @@
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
             // 
+            // colorDialog2
+            // 
+            this.colorDialog2.Color = System.Drawing.Color.Green;
+            // 
+            // visitOption
+            // 
+            this.visitOption.AutoSize = true;
+            this.visitOption.Location = new System.Drawing.Point(123, 108);
+            this.visitOption.Name = "visitOption";
+            this.visitOption.Size = new System.Drawing.Size(110, 17);
+            this.visitOption.TabIndex = 12;
+            this.visitOption.Text = "Show cells to visit";
+            this.visitOption.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -437,6 +453,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button PathColorBtn;
         private System.Windows.Forms.ColorDialog colorDialog2;
+        private System.Windows.Forms.CheckBox visitOption;
     }
 }
 
