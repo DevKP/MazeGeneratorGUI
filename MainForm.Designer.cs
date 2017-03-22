@@ -39,9 +39,15 @@
             this.refreshTimeout = new System.Windows.Forms.NumericUpDown();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.iterOption = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.PathColorBtn = new System.Windows.Forms.Button();
+            this.wallsColorBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.pathSizeOption = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -49,19 +55,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.mazeGroup = new System.Windows.Forms.GroupBox();
             this.mazeBox = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.iterOption = new System.Windows.Forms.NumericUpDown();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshTimeout)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).BeginInit();
             this.mazeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).BeginInit();
             this.SuspendLayout();
             // 
             // startGenerationButton
@@ -185,12 +191,43 @@
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 213);
+            this.groupBox1.Location = new System.Drawing.Point(628, 170);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(258, 153);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Screen Update";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(38, 84);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Iterations per tick";
+            // 
+            // iterOption
+            // 
+            this.iterOption.Location = new System.Drawing.Point(132, 82);
+            this.iterOption.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.iterOption.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.iterOption.Name = "iterOption";
+            this.iterOption.Size = new System.Drawing.Size(120, 20);
+            this.iterOption.TabIndex = 10;
+            this.iterOption.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -212,6 +249,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.PathColorBtn);
+            this.groupBox2.Controls.Add(this.wallsColorBtn);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.pathSizeOption);
             this.groupBox2.Controls.Add(this.label5);
@@ -220,12 +261,50 @@
             this.groupBox2.Controls.Add(this.lineW);
             this.groupBox2.Controls.Add(this.mazeH);
             this.groupBox2.Controls.Add(this.mazeW);
-            this.groupBox2.Location = new System.Drawing.Point(628, 372);
+            this.groupBox2.Location = new System.Drawing.Point(628, 329);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 171);
+            this.groupBox2.Size = new System.Drawing.Size(258, 232);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Maze Settings";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(112, 208);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Path Color";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(108, 179);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(60, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Walls Color";
+            // 
+            // PathColorBtn
+            // 
+            this.PathColorBtn.Location = new System.Drawing.Point(174, 203);
+            this.PathColorBtn.Name = "PathColorBtn";
+            this.PathColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.PathColorBtn.TabIndex = 15;
+            this.PathColorBtn.Text = "Choose";
+            this.PathColorBtn.UseVisualStyleBackColor = true;
+            this.PathColorBtn.Click += new System.EventHandler(this.PathColorBtn_Click);
+            // 
+            // wallsColorBtn
+            // 
+            this.wallsColorBtn.Location = new System.Drawing.Point(174, 174);
+            this.wallsColorBtn.Name = "wallsColorBtn";
+            this.wallsColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.wallsColorBtn.TabIndex = 11;
+            this.wallsColorBtn.Text = "Choose";
+            this.wallsColorBtn.UseVisualStyleBackColor = true;
+            this.wallsColorBtn.Click += new System.EventHandler(this.WallsBtn_Click);
             // 
             // label6
             // 
@@ -298,37 +377,6 @@
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(38, 84);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Iterations per tick";
-            // 
-            // iterOption
-            // 
-            this.iterOption.Location = new System.Drawing.Point(132, 82);
-            this.iterOption.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.iterOption.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.iterOption.Name = "iterOption";
-            this.iterOption.Size = new System.Drawing.Size(120, 20);
-            this.iterOption.TabIndex = 10;
-            this.iterOption.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,12 +397,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.refreshTimeout)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).EndInit();
             this.mazeGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -383,6 +431,12 @@
         private System.Windows.Forms.NumericUpDown pathSizeOption;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown iterOption;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button wallsColorBtn;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button PathColorBtn;
+        private System.Windows.Forms.ColorDialog colorDialog2;
     }
 }
 

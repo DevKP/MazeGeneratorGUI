@@ -19,12 +19,6 @@ namespace MazeGeneratorGUI
         public MainForm()
         {
             InitializeComponent();
-
-            //this.DoubleBuffered = true;
-           // typeof(GroupBox).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
-           //| BindingFlags.Instance | BindingFlags.NonPublic, null,
-           //mazeBox, new object[] { true });
-
             maze = Maze.Instance;
             maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
 
@@ -52,7 +46,7 @@ namespace MazeGeneratorGUI
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-                mazeBox.Refresh();
+            mazeBox.Refresh();
         }
 
         private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
@@ -86,10 +80,10 @@ namespace MazeGeneratorGUI
             }
             else
             {
-                CellSize = (mazeSize.Y / maze.cols) ;
+                CellSize = (mazeSize.Y / maze.cols);
             }
 
-            using (Pen myPen = new Pen(Color.Black, lineWidth))
+            using (Pen myPen = new Pen(colorDialog1.Color, lineWidth))
             {
                 SizeF fieldsize = new SizeF(CellSize * maze.cols, 
                                             CellSize * maze.rows);
@@ -143,7 +137,7 @@ namespace MazeGeneratorGUI
                         index += 1;
                     }
 
-                    myPen.Color = Color.Green;
+                    myPen.Color = colorDialog2.Color;
                     myPen.Width = CellSize * ((float)pathSizeOption.Value / 100);
 
                     e.Graphics.DrawLines(myPen, path);
@@ -173,6 +167,18 @@ namespace MazeGeneratorGUI
                 maze.generate();
                 mazeBox.Refresh();
             }
+        }
+
+        private void WallsBtn_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            mazeBox.Refresh();
+        }
+
+        private void PathColorBtn_Click(object sender, EventArgs e)
+        {
+            colorDialog2.ShowDialog();
+            mazeBox.Refresh();
         }
     }
 }
