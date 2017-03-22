@@ -39,16 +39,18 @@
             this.refreshTimeout = new System.Windows.Forms.NumericUpDown();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.mazeGroup = new System.Windows.Forms.GroupBox();
-            this.mazeBox = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.pathSizeOption = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.mazeGroup = new System.Windows.Forms.GroupBox();
+            this.mazeBox = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.iterOption = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -56,9 +58,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.refreshTimeout)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).BeginInit();
             this.mazeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).BeginInit();
             this.SuspendLayout();
             // 
             // startGenerationButton
@@ -73,11 +76,6 @@
             // 
             // generationSpeed
             // 
-            this.generationSpeed.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
             this.generationSpeed.Location = new System.Drawing.Point(132, 30);
             this.generationSpeed.Maximum = new decimal(new int[] {
             1000,
@@ -101,7 +99,9 @@
             // visGen
             // 
             this.visGen.AutoSize = true;
-            this.visGen.Location = new System.Drawing.Point(129, 101);
+            this.visGen.Checked = true;
+            this.visGen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.visGen.Location = new System.Drawing.Point(123, 130);
             this.visGen.Name = "visGen";
             this.visGen.Size = new System.Drawing.Size(129, 17);
             this.visGen.TabIndex = 2;
@@ -149,18 +149,13 @@
             this.mazeH.Size = new System.Drawing.Size(120, 20);
             this.mazeH.TabIndex = 6;
             this.mazeH.Value = new decimal(new int[] {
-            50,
+            70,
             0,
             0,
             0});
             // 
             // refreshTimeout
             // 
-            this.refreshTimeout.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
             this.refreshTimeout.Location = new System.Drawing.Point(132, 56);
             this.refreshTimeout.Maximum = new decimal(new int[] {
             1000,
@@ -176,33 +171,26 @@
             this.refreshTimeout.Size = new System.Drawing.Size(120, 20);
             this.refreshTimeout.TabIndex = 7;
             this.refreshTimeout.Value = new decimal(new int[] {
-            50,
+            1,
             0,
             0,
             0});
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.iterOption);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 237);
+            this.groupBox1.Location = new System.Drawing.Point(628, 213);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(258, 129);
+            this.groupBox1.Size = new System.Drawing.Size(258, 153);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Screen Update";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Generation timeout (ms)";
             // 
             // label2
             // 
@@ -212,6 +200,15 @@
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Refresh timeout (ms)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Generation timeout (ms)";
             // 
             // groupBox2
             // 
@@ -230,14 +227,40 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Maze Settings";
             // 
-            // label3
+            // label6
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Height (Cells)";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 116);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Path thickness (%)";
+            // 
+            // pathSizeOption
+            // 
+            this.pathSizeOption.Location = new System.Drawing.Point(129, 114);
+            this.pathSizeOption.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.pathSizeOption.Name = "pathSizeOption";
+            this.pathSizeOption.Size = new System.Drawing.Size(120, 20);
+            this.pathSizeOption.TabIndex = 13;
+            this.pathSizeOption.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Line thickness (px)";
             // 
             // label4
             // 
@@ -248,14 +271,14 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Width (Cells)";
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 90);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Line thickness (px)";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(54, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Height (Cells)";
             // 
             // mazeGroup
             // 
@@ -275,33 +298,33 @@
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
             // 
-            // label6
+            // label7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 116);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Path thickness (%)";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(38, 84);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Iterations per tick";
             // 
-            // pathSizeOption
+            // iterOption
             // 
-            this.pathSizeOption.Increment = new decimal(new int[] {
-            5,
+            this.iterOption.Location = new System.Drawing.Point(132, 82);
+            this.iterOption.Maximum = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.pathSizeOption.Location = new System.Drawing.Point(129, 114);
-            this.pathSizeOption.Minimum = new decimal(new int[] {
+            this.iterOption.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.pathSizeOption.Name = "pathSizeOption";
-            this.pathSizeOption.Size = new System.Drawing.Size(120, 20);
-            this.pathSizeOption.TabIndex = 13;
-            this.pathSizeOption.Value = new decimal(new int[] {
-            2,
+            this.iterOption.Name = "iterOption";
+            this.iterOption.Size = new System.Drawing.Size(120, 20);
+            this.iterOption.TabIndex = 10;
+            this.iterOption.Value = new decimal(new int[] {
+            3,
             0,
             0,
             0});
@@ -316,6 +339,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.startGenerationButton);
             this.Name = "MainForm";
+            this.Tag = "";
             this.Text = "Maze Generator";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).EndInit();
@@ -327,9 +351,10 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).EndInit();
             this.mazeGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterOption)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -356,6 +381,8 @@
         private System.Windows.Forms.PictureBox mazeBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown pathSizeOption;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown iterOption;
     }
 }
 

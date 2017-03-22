@@ -14,8 +14,8 @@ namespace MazeGeneratorGUI
     public partial class MainForm : Form
     {
         Maze maze;
-        Position mazePos;
-        Position mazeSize;
+        PointF mazePos;
+        PointF mazeSize;
         public MainForm()
         {
             InitializeComponent();
@@ -41,8 +41,8 @@ namespace MazeGeneratorGUI
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
 
-            mazePos = new Position((int)lineW.Value, (int)lineW.Value);
-            mazeSize = new Position(mazeBox.Size.Height - (int)lineW.Value*2, mazeBox.Size.Width - (int)lineW.Value * 2);
+            mazePos = new PointF(0, 0);
+            mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value*2, mazeBox.Size.Width-(int)lineW.Value*2);
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -52,7 +52,7 @@ namespace MazeGeneratorGUI
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            mazeBox.Refresh();
+                mazeBox.Refresh();
         }
 
         private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
@@ -64,7 +64,8 @@ namespace MazeGeneratorGUI
         {
             if (!maze.generated)
             {
-                maze.generateOneStep();
+                for (int i = 0; i < iterOption.Value; i++)
+                    maze.generateOneStep();
             }
             else
             {
@@ -79,34 +80,51 @@ namespace MazeGeneratorGUI
             PointF cellPos = new PointF();
 
             float CellSize;
-            if (mazeSize.x > mazeSize.y)
+            if (maze.cols < maze.rows)
             {
-                CellSize = ((float)mazeSize.x / (float)maze.cols);
+                CellSize = (mazeSize.X / maze.rows);
             }
             else
             {
-                CellSize = ((float)mazeSize.y / (float)maze.rows) ;
+                CellSize = (mazeSize.Y / maze.cols) ;
             }
 
             using (Pen myPen = new Pen(Color.Black, lineWidth))
             {
-                e.Graphics.DrawLine(myPen, mazePos.x, mazePos.y, mazePos.x, maze.rows * CellSize + mazePos.y);
-                e.Graphics.DrawLine(myPen, mazePos.x, mazePos.y, maze.cols * CellSize + mazePos.x , mazePos.y);
+                SizeF fieldsize = new SizeF(CellSize * maze.cols, 
+                                            CellSize * maze.rows);
+
+                SizeF centering = new SizeF((mazeSize.Y - (fieldsize.Width - lineWidth)) / 2,
+                                            (mazeSize.X - (fieldsize.Height - lineWidth)) / 2);
+
+                PointF border1 = new PointF(mazePos.X,                   mazePos.Y + fieldsize.Height);
+                PointF border2 = new PointF(mazePos.X + fieldsize.Width, mazePos.Y);
+
+                e.Graphics.DrawLine(myPen, mazePos + centering, border1 + centering);
+                e.Graphics.DrawLine(myPen, mazePos + centering, border2 + centering);
 
                 for (int h = 0; h < maze.rows; h++)
                 {
                     for (int w = 0; w < maze.cols; w++)
                     {
-                        cellPos.X = mazePos.x + (w * CellSize);
-                        cellPos.Y = mazePos.y + (h * CellSize);
+                        cellPos.X = w * CellSize;
+                        cellPos.Y = h * CellSize;
+                        cellPos += centering;
+
+                        PointF RBCorner = new PointF(cellPos.X + CellSize, 
+                                                     cellPos.Y + CellSize);
 
                         if (maze.getCell(w, h).bottom)
                         {
-                            e.Graphics.DrawLine(myPen, cellPos.X, cellPos.Y + CellSize, cellPos.X + CellSize, cellPos.Y + CellSize);
+                            PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
+
+                            e.Graphics.DrawLine(myPen, RBCorner, BottomWall);
                         }
                         if (maze.getCell(w, h).right)
                         {
-                            e.Graphics.DrawLine(myPen, cellPos.X + CellSize, cellPos.Y, cellPos.X + CellSize, cellPos.Y + CellSize);
+                            PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
+
+                            e.Graphics.DrawLine(myPen, RBCorner, RightWall);
                         }
                     }
                 }
@@ -115,22 +133,13 @@ namespace MazeGeneratorGUI
                 {
                     PointF[] path = maze.stack.ToArray();
 
-                    //myPen.Color = Color.Green;
-                    //myPen.Width = CellSize * 0.8f;
-
-                    //for (int i = 0;i < maze.stack.Count - 1;i++)
-                    //{
-                    //    PointF f = new PointF(mazePos.x + lineWidth + path[i].X * CellSize + CellSize / 2,
-                    //       mazePos.y + lineWidth + path[i].Y * CellSize + CellSize / 2);
-                    //    PointF s = new PointF(mazePos.x + lineWidth + path[i + 1].X * CellSize + CellSize / 2,
-                    //       mazePos.y + lineWidth + path[i + 1].Y * CellSize + CellSize / 2);
-                    //    e.Graphics.DrawLine(myPen, f, s);
-                    //}
                     int index = 0;
                     foreach (var pos in maze.stack)
                     {
-                        path[index].X = mazePos.x + path[index].X * CellSize + CellSize / 2;
-                        path[index].Y = mazePos.y + path[index].Y * CellSize + CellSize / 2;
+                        path[index].X = mazePos.X + path[index].X * CellSize + CellSize / 2;
+                        path[index].Y = mazePos.Y + path[index].Y * CellSize + CellSize / 2;
+
+                        path[index] += centering;
                         index += 1;
                     }
 
