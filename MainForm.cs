@@ -42,7 +42,7 @@ namespace MazeGeneratorGUI
             bgrndColorBtn.BackColor = colorDialog3.Color;
 
 
-
+            this.ResizeEnd += MainForm_ResizeEnd;
 
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             //mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
@@ -52,6 +52,11 @@ namespace MazeGeneratorGUI
             //mazeSize = new PointF(10000 - (int)lineW.Value * 2, 10000 - (int)lineW.Value * 2);
 
             updateMaze();
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            ResizeBtn_Click(sender, e);
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -97,11 +102,21 @@ namespace MazeGeneratorGUI
             float CellSize;
             if (maze.cols < maze.rows)
             {
-                CellSize = (mazeSize.X / maze.rows);
+                    CellSize = (mazeSize.X / maze.rows);
             }
             else
             {
+                    CellSize = (mazeSize.Y / maze.cols);
+            }
+
+            if(CellSize * maze.cols > mazeSize.Y)
+            {
                 CellSize = (mazeSize.Y / maze.cols);
+            }
+
+            if (CellSize * maze.rows > mazeSize.X)
+            {
+                CellSize = (mazeSize.X / maze.rows);
             }
 
             Graphics g;
