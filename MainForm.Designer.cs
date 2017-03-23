@@ -457,7 +457,7 @@
             // 
             this.procentsLabel.AutoSize = true;
             this.procentsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.procentsLabel.Location = new System.Drawing.Point(35, 26);
+            this.procentsLabel.Location = new System.Drawing.Point(23, 27);
             this.procentsLabel.Name = "procentsLabel";
             this.procentsLabel.Size = new System.Drawing.Size(21, 13);
             this.procentsLabel.TabIndex = 14;
@@ -609,7 +609,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Tag = "";
             this.Text = "Maze Generator";

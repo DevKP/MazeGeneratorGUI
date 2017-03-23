@@ -42,6 +42,8 @@ namespace MazeGeneratorGUI
             bgrndColorBtn.BackColor = colorDialog3.Color;
 
 
+            //this.ResizeEnd += MainForm_ResizeEnd;
+            this.Resize += MainForm_Resize;
             this.ResizeEnd += MainForm_ResizeEnd;
 
             //this.Paint += new PaintEventHandler(MainForm_Paint);
@@ -56,7 +58,24 @@ namespace MazeGeneratorGUI
 
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
-            ResizeBtn_Click(sender, e);
+            updateMaze();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            mazeBitmap = new Bitmap(mazeBox.Size.Width, mazeBox.Size.Height);
+            mazeBox.Image = mazeBitmap;
+            mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value * 2, mazeBox.Size.Width - (int)lineW.Value * 2);
+
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                updateMaze();
+            }
+            else
+            {
+                drawMaze(true);
+                mazeBox.Refresh();
+            }
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -94,7 +113,7 @@ namespace MazeGeneratorGUI
             }
         }
 
-        private void drawMaze()
+        private void drawMaze(bool drawOnlyRectangle)
         {
             int lineWidth = (int)lineW.Value;
             PointF cellPos = new PointF();
@@ -126,49 +145,36 @@ namespace MazeGeneratorGUI
 
             using (Pen myPen = new Pen(colorDialog1.Color, lineWidth))
             {
-                SizeF fieldsize = new SizeF(CellSize * maze.cols, 
+                SizeF fieldsize = new SizeF(CellSize * maze.cols,
                                             CellSize * maze.rows);
 
                 SizeF centering = new SizeF((mazeSize.Y - (fieldsize.Width - lineWidth)) / 2,
                                             (mazeSize.X - (fieldsize.Height - lineWidth)) / 2);
 
-                PointF border1 = new PointF(mazePos.X,                   mazePos.Y + fieldsize.Height);
+                PointF border1 = new PointF(mazePos.X, mazePos.Y + fieldsize.Height);
                 PointF border2 = new PointF(mazePos.X + fieldsize.Width, mazePos.Y);
 
-                g.DrawLine(myPen, mazePos + centering, border1 + centering);
-                g.DrawLine(myPen, mazePos + centering, border2 + centering);
+                
 
-                for (int h = 0; h < maze.rows; h++)
+                if (!drawOnlyRectangle)
                 {
-                    for (int w = 0; w < maze.cols; w++)
+                    g.DrawLine(myPen, mazePos + centering, border1 + centering);
+                    g.DrawLine(myPen, mazePos + centering, border2 + centering);
+
+                    for (int h = 0; h < maze.rows; h++)
                     {
-                        cellPos.X = w * CellSize;
-                        cellPos.Y = h * CellSize;
-                        cellPos += centering;
-
-                        PointF RBCorner = new PointF(cellPos.X + CellSize,
-                                                     cellPos.Y + CellSize);
-
-
-
-                        if (semptyOption.Checked)
+                        for (int w = 0; w < maze.cols; w++)
                         {
-                            if (maze.getCell(w, h).bottom)
-                            {
-                                PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
+                            cellPos.X = w * CellSize;
+                            cellPos.Y = h * CellSize;
+                            cellPos += centering;
 
-                                g.DrawLine(myPen, RBCorner, BottomWall);
-                            }
-                            if (maze.getCell(w, h).right)
-                            {
-                                PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
+                            PointF RBCorner = new PointF(cellPos.X + CellSize,
+                                                         cellPos.Y + CellSize);
 
-                                g.DrawLine(myPen, RBCorner, RightWall);
-                            }
-                        }
-                        else
-                        {
-                            if (maze.getCell(w, h).visited)
+
+
+                            if (semptyOption.Checked)
                             {
                                 if (maze.getCell(w, h).bottom)
                                 {
@@ -183,39 +189,61 @@ namespace MazeGeneratorGUI
                                     g.DrawLine(myPen, RBCorner, RightWall);
                                 }
                             }
+                            else
+                            {
+                                if (maze.getCell(w, h).visited)
+                                {
+                                    if (maze.getCell(w, h).bottom)
+                                    {
+                                        PointF BottomWall = new PointF(cellPos.X, cellPos.Y + CellSize);
+
+                                        g.DrawLine(myPen, RBCorner, BottomWall);
+                                    }
+                                    if (maze.getCell(w, h).right)
+                                    {
+                                        PointF RightWall = new PointF(cellPos.X + CellSize, cellPos.Y);
+
+                                        g.DrawLine(myPen, RBCorner, RightWall);
+                                    }
+                                }
+                            }
+
+
+
+                            if (visitOption.Checked)
+                                if (!maze.getCell(w, h).visited)
+                                {
+                                    myPen.Color = Color.Red;
+                                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange);
+                                    g.FillRectangle(myBrush, new Rectangle((int)cellPos.X, (int)cellPos.Y, (int)CellSize + lineWidth, (int)CellSize + lineWidth));
+                                    myPen.Color = colorDialog1.Color;
+                                }
+                        }
+                    }
+
+                    if (maze.stack.Count > 1)
+                    {
+                        PointF[] path = maze.stack.ToArray();
+
+                        int index = 0;
+                        foreach (var pos in maze.stack)
+                        {
+                            path[index].X = mazePos.X + path[index].X * CellSize + CellSize / 2;
+                            path[index].Y = mazePos.Y + path[index].Y * CellSize + CellSize / 2;
+
+                            path[index] += centering;
+                            index += 1;
                         }
 
+                        myPen.Color = colorDialog2.Color;
+                        myPen.Width = CellSize * ((float)pathSizeOption.Value / 100);
 
-
-                        if (visitOption.Checked)
-                            if (!maze.getCell(w, h).visited)
-                            {
-                                myPen.Color = Color.Red;
-                                System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Orange);
-                                g.FillRectangle(myBrush, new Rectangle((int)cellPos.X, (int)cellPos.Y, (int)CellSize + lineWidth, (int)CellSize + lineWidth));
-                                myPen.Color = colorDialog1.Color;
-                            }
+                        g.DrawLines(myPen, path);
                     }
                 }
-
-                if (maze.stack.Count > 1)
+                else
                 {
-                    PointF[] path = maze.stack.ToArray();
-
-                    int index = 0;
-                    foreach (var pos in maze.stack)
-                    {
-                        path[index].X = mazePos.X + path[index].X * CellSize + CellSize / 2;
-                        path[index].Y = mazePos.Y + path[index].Y * CellSize + CellSize / 2;
-
-                        path[index] += centering;
-                        index += 1;
-                    }
-
-                    myPen.Color = colorDialog2.Color;
-                    myPen.Width = CellSize * ((float)pathSizeOption.Value / 100);
-
-                    g.DrawLines(myPen, path);
+                    g.DrawRectangle(myPen, new Rectangle((int)centering.Width, (int)centering.Height, (int)fieldsize.Width, (int)fieldsize.Height));
                 }
             }
             g.Dispose();
@@ -223,7 +251,7 @@ namespace MazeGeneratorGUI
 
         private void updateMaze()
         {
-            drawMaze();
+            drawMaze(false);
             mazeBox.Refresh();
         }
 
