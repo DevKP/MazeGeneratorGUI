@@ -73,6 +73,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.bgrndColorBtn = new System.Windows.Forms.Button();
             this.colorDialog3 = new System.Windows.Forms.ColorDialog();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ResizeBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -85,13 +90,17 @@
             this.mazeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // startGenerationButton
             // 
-            this.startGenerationButton.Location = new System.Drawing.Point(709, 606);
+            this.startGenerationButton.Location = new System.Drawing.Point(117, 19);
             this.startGenerationButton.Name = "startGenerationButton";
-            this.startGenerationButton.Size = new System.Drawing.Size(140, 28);
+            this.startGenerationButton.Size = new System.Drawing.Size(98, 28);
             this.startGenerationButton.TabIndex = 0;
             this.startGenerationButton.Text = "Start Generation";
             this.startGenerationButton.UseVisualStyleBackColor = true;
@@ -201,6 +210,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ResizeBtn);
             this.groupBox1.Controls.Add(this.semptyOption);
             this.groupBox1.Controls.Add(this.visitOption);
             this.groupBox1.Controls.Add(this.label7);
@@ -210,9 +220,9 @@
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 33);
+            this.groupBox1.Location = new System.Drawing.Point(42, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(258, 174);
+            this.groupBox1.Size = new System.Drawing.Size(258, 205);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Screen Update";
@@ -304,9 +314,9 @@
             this.groupBox2.Controls.Add(this.lineW);
             this.groupBox2.Controls.Add(this.mazeH);
             this.groupBox2.Controls.Add(this.mazeW);
-            this.groupBox2.Location = new System.Drawing.Point(628, 232);
+            this.groupBox2.Location = new System.Drawing.Point(42, 283);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 246);
+            this.groupBox2.Size = new System.Drawing.Size(258, 252);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Maze Settings";
@@ -403,18 +413,20 @@
             // mazeGroup
             // 
             this.mazeGroup.Controls.Add(this.mazeBox);
-            this.mazeGroup.Location = new System.Drawing.Point(12, 27);
+            this.mazeGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mazeGroup.Location = new System.Drawing.Point(3, 3);
             this.mazeGroup.Name = "mazeGroup";
-            this.mazeGroup.Size = new System.Drawing.Size(600, 600);
+            this.mazeGroup.Size = new System.Drawing.Size(917, 662);
             this.mazeGroup.TabIndex = 10;
             this.mazeGroup.TabStop = false;
             this.mazeGroup.Text = "Maze";
             // 
             // mazeBox
             // 
-            this.mazeBox.Location = new System.Drawing.Point(13, 16);
+            this.mazeBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mazeBox.Location = new System.Drawing.Point(3, 16);
             this.mazeBox.Name = "mazeBox";
-            this.mazeBox.Size = new System.Drawing.Size(575, 575);
+            this.mazeBox.Size = new System.Drawing.Size(911, 643);
             this.mazeBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mazeBox.TabIndex = 0;
             this.mazeBox.TabStop = false;
@@ -425,7 +437,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(659, 608);
+            this.progressBar1.Location = new System.Drawing.Point(65, 21);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(45, 23);
             this.progressBar1.Step = 1;
@@ -433,7 +445,7 @@
             // 
             // resetBtn
             // 
-            this.resetBtn.Location = new System.Drawing.Point(855, 606);
+            this.resetBtn.Location = new System.Drawing.Point(221, 19);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(31, 28);
             this.resetBtn.TabIndex = 13;
@@ -445,7 +457,7 @@
             // 
             this.procentsLabel.AutoSize = true;
             this.procentsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.procentsLabel.Location = new System.Drawing.Point(625, 614);
+            this.procentsLabel.Location = new System.Drawing.Point(35, 26);
             this.procentsLabel.Name = "procentsLabel";
             this.procentsLabel.Size = new System.Drawing.Size(21, 13);
             this.procentsLabel.TabIndex = 14;
@@ -460,7 +472,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1261, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -529,18 +541,72 @@
             // 
             this.colorDialog3.Color = System.Drawing.Color.White;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 338F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.mazeGroup, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1261, 668);
+            this.tableLayoutPanel1.TabIndex = 16;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(926, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(332, 662);
+            this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Controls.Add(this.groupBox2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 38);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(332, 624);
+            this.panel2.TabIndex = 15;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.procentsLabel);
+            this.groupBox3.Controls.Add(this.resetBtn);
+            this.groupBox3.Controls.Add(this.progressBar1);
+            this.groupBox3.Controls.Add(this.startGenerationButton);
+            this.groupBox3.Location = new System.Drawing.Point(42, 541);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(258, 57);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Controls";
+            // 
+            // ResizeBtn
+            // 
+            this.ResizeBtn.Location = new System.Drawing.Point(174, 174);
+            this.ResizeBtn.Name = "ResizeBtn";
+            this.ResizeBtn.Size = new System.Drawing.Size(75, 23);
+            this.ResizeBtn.TabIndex = 14;
+            this.ResizeBtn.Text = "Resize";
+            this.ResizeBtn.UseVisualStyleBackColor = true;
+            this.ResizeBtn.Click += new System.EventHandler(this.ResizeBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 638);
-            this.Controls.Add(this.procentsLabel);
-            this.Controls.Add(this.resetBtn);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.mazeGroup);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.startGenerationButton);
+            this.ClientSize = new System.Drawing.Size(1261, 692);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -563,6 +629,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -614,6 +685,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button bgrndColorBtn;
         private System.Windows.Forms.ColorDialog colorDialog3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button ResizeBtn;
     }
 }
 

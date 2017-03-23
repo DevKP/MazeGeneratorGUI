@@ -24,7 +24,7 @@ namespace MazeGeneratorGUI
             maze = Maze.Instance;
             maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
 
-            mazeBitmap = new Bitmap(mazeBox.Size.Height, mazeBox.Size.Width);
+            mazeBitmap = new Bitmap(mazeBox.Size.Width,mazeBox.Size.Height);
             mazeBox.Image = mazeBitmap;
 
             generateTimer.Interval = (int)generationSpeed.Value;
@@ -280,6 +280,14 @@ namespace MazeGeneratorGUI
         private void aboutToolStrip_Click(object sender, EventArgs e)
         {
             (new AboutBox1()).ShowDialog(this);
+        }
+
+        private void ResizeBtn_Click(object sender, EventArgs e)
+        {
+            mazeBitmap = new Bitmap(mazeBox.Size.Width, mazeBox.Size.Height);
+            mazeBox.Image = mazeBitmap;
+            mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value * 2, mazeBox.Size.Width - (int)lineW.Value * 2);
+            updateMaze();
         }
     }
 }
