@@ -46,6 +46,9 @@ namespace MazeGeneratorGUI
             this.Resize += MainForm_Resize;
             this.ResizeEnd += MainForm_ResizeEnd;
 
+
+            this.MinimumSize = new Size(500, panel2.Size.Height);
+
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             //mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
 
@@ -63,6 +66,7 @@ namespace MazeGeneratorGUI
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+
             mazeBitmap = new Bitmap(mazeBox.Size.Width, mazeBox.Size.Height);
             mazeBox.Image = mazeBitmap;
             mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value * 2, mazeBox.Size.Width - (int)lineW.Value * 2);
