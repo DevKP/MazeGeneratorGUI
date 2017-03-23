@@ -39,6 +39,8 @@
             this.refreshTimeout = new System.Windows.Forms.NumericUpDown();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.semptyOption = new System.Windows.Forms.CheckBox();
+            this.visitOption = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.iterOption = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,13 +59,20 @@
             this.mazeBox = new System.Windows.Forms.PictureBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
-            this.visitOption = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.saveBtn = new System.Windows.Forms.Button();
-            this.semptyOption = new System.Windows.Forms.CheckBox();
             this.resetBtn = new System.Windows.Forms.Button();
             this.procentsLabel = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePictureToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label10 = new System.Windows.Forms.Label();
+            this.bgrndColorBtn = new System.Windows.Forms.Button();
+            this.colorDialog3 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.generationSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeW)).BeginInit();
@@ -75,11 +84,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).BeginInit();
             this.mazeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // startGenerationButton
             // 
-            this.startGenerationButton.Location = new System.Drawing.Point(688, 591);
+            this.startGenerationButton.Location = new System.Drawing.Point(709, 606);
             this.startGenerationButton.Name = "startGenerationButton";
             this.startGenerationButton.Size = new System.Drawing.Size(140, 28);
             this.startGenerationButton.TabIndex = 0;
@@ -200,12 +210,34 @@
             this.groupBox1.Controls.Add(this.visGen);
             this.groupBox1.Controls.Add(this.generationSpeed);
             this.groupBox1.Controls.Add(this.refreshTimeout);
-            this.groupBox1.Location = new System.Drawing.Point(628, 130);
+            this.groupBox1.Location = new System.Drawing.Point(628, 33);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(258, 174);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Screen Update";
+            // 
+            // semptyOption
+            // 
+            this.semptyOption.AutoSize = true;
+            this.semptyOption.Checked = true;
+            this.semptyOption.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.semptyOption.Location = new System.Drawing.Point(123, 151);
+            this.semptyOption.Name = "semptyOption";
+            this.semptyOption.Size = new System.Drawing.Size(84, 17);
+            this.semptyOption.TabIndex = 13;
+            this.semptyOption.Text = "Show empty";
+            this.semptyOption.UseVisualStyleBackColor = true;
+            // 
+            // visitOption
+            // 
+            this.visitOption.AutoSize = true;
+            this.visitOption.Location = new System.Drawing.Point(123, 108);
+            this.visitOption.Name = "visitOption";
+            this.visitOption.Size = new System.Drawing.Size(110, 17);
+            this.visitOption.TabIndex = 12;
+            this.visitOption.Text = "Show cells to visit";
+            this.visitOption.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -258,6 +290,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.bgrndColorBtn);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.PathColorBtn);
@@ -270,9 +304,9 @@
             this.groupBox2.Controls.Add(this.lineW);
             this.groupBox2.Controls.Add(this.mazeH);
             this.groupBox2.Controls.Add(this.mazeW);
-            this.groupBox2.Location = new System.Drawing.Point(628, 329);
+            this.groupBox2.Location = new System.Drawing.Point(628, 232);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 232);
+            this.groupBox2.Size = new System.Drawing.Size(258, 246);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Maze Settings";
@@ -280,7 +314,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(112, 208);
+            this.label9.Location = new System.Drawing.Point(66, 187);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 17;
@@ -289,7 +323,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(108, 179);
+            this.label8.Location = new System.Drawing.Point(62, 158);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 13);
             this.label8.TabIndex = 16;
@@ -297,21 +331,19 @@
             // 
             // PathColorBtn
             // 
-            this.PathColorBtn.Location = new System.Drawing.Point(174, 203);
+            this.PathColorBtn.Location = new System.Drawing.Point(129, 182);
             this.PathColorBtn.Name = "PathColorBtn";
-            this.PathColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.PathColorBtn.Size = new System.Drawing.Size(120, 23);
             this.PathColorBtn.TabIndex = 15;
-            this.PathColorBtn.Text = "Choose";
             this.PathColorBtn.UseVisualStyleBackColor = true;
             this.PathColorBtn.Click += new System.EventHandler(this.PathColorBtn_Click);
             // 
             // wallsColorBtn
             // 
-            this.wallsColorBtn.Location = new System.Drawing.Point(174, 174);
+            this.wallsColorBtn.Location = new System.Drawing.Point(129, 153);
             this.wallsColorBtn.Name = "wallsColorBtn";
-            this.wallsColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.wallsColorBtn.Size = new System.Drawing.Size(120, 23);
             this.wallsColorBtn.TabIndex = 11;
-            this.wallsColorBtn.Text = "Choose";
             this.wallsColorBtn.UseVisualStyleBackColor = true;
             this.wallsColorBtn.Click += new System.EventHandler(this.WallsBtn_Click);
             // 
@@ -371,7 +403,7 @@
             // mazeGroup
             // 
             this.mazeGroup.Controls.Add(this.mazeBox);
-            this.mazeGroup.Location = new System.Drawing.Point(12, 12);
+            this.mazeGroup.Location = new System.Drawing.Point(12, 27);
             this.mazeGroup.Name = "mazeGroup";
             this.mazeGroup.Size = new System.Drawing.Size(600, 600);
             this.mazeGroup.TabIndex = 10;
@@ -391,49 +423,17 @@
             // 
             this.colorDialog2.Color = System.Drawing.Color.Green;
             // 
-            // visitOption
-            // 
-            this.visitOption.AutoSize = true;
-            this.visitOption.Location = new System.Drawing.Point(123, 108);
-            this.visitOption.Name = "visitOption";
-            this.visitOption.Size = new System.Drawing.Size(110, 17);
-            this.visitOption.TabIndex = 12;
-            this.visitOption.Text = "Show cells to visit";
-            this.visitOption.UseVisualStyleBackColor = true;
-            // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(708, 567);
+            this.progressBar1.Location = new System.Drawing.Point(659, 608);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Size = new System.Drawing.Size(45, 23);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 11;
             // 
-            // saveBtn
-            // 
-            this.saveBtn.Location = new System.Drawing.Point(811, 44);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 12;
-            this.saveBtn.Text = "Save";
-            this.saveBtn.UseVisualStyleBackColor = true;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
-            // 
-            // semptyOption
-            // 
-            this.semptyOption.AutoSize = true;
-            this.semptyOption.Checked = true;
-            this.semptyOption.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.semptyOption.Location = new System.Drawing.Point(123, 151);
-            this.semptyOption.Name = "semptyOption";
-            this.semptyOption.Size = new System.Drawing.Size(84, 17);
-            this.semptyOption.TabIndex = 13;
-            this.semptyOption.Text = "Show empty";
-            this.semptyOption.UseVisualStyleBackColor = true;
-            // 
             // resetBtn
             // 
-            this.resetBtn.Location = new System.Drawing.Point(834, 591);
+            this.resetBtn.Location = new System.Drawing.Point(855, 606);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(31, 28);
             this.resetBtn.TabIndex = 13;
@@ -444,25 +444,104 @@
             // procentsLabel
             // 
             this.procentsLabel.AutoSize = true;
-            this.procentsLabel.Location = new System.Drawing.Point(813, 573);
+            this.procentsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.procentsLabel.Location = new System.Drawing.Point(625, 614);
             this.procentsLabel.Name = "procentsLabel";
             this.procentsLabel.Size = new System.Drawing.Size(21, 13);
             this.procentsLabel.TabIndex = 14;
             this.procentsLabel.Text = "0%";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.savePictureToolStripMenu});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // savePictureToolStripMenu
+            // 
+            this.savePictureToolStripMenu.Name = "savePictureToolStripMenu";
+            this.savePictureToolStripMenu.Size = new System.Drawing.Size(138, 22);
+            this.savePictureToolStripMenu.Text = "Save Picture";
+            this.savePictureToolStripMenu.Click += new System.EventHandler(this.savePictureToolStripMenu_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sourceCodeToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // sourceCodeToolStripMenuItem
+            // 
+            this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
+            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.sourceCodeToolStripMenuItem.Text = "Source code     ";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(30, 216);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(92, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Background Color";
+            // 
+            // bgrndColorBtn
+            // 
+            this.bgrndColorBtn.Location = new System.Drawing.Point(129, 211);
+            this.bgrndColorBtn.Name = "bgrndColorBtn";
+            this.bgrndColorBtn.Size = new System.Drawing.Size(120, 23);
+            this.bgrndColorBtn.TabIndex = 18;
+            this.bgrndColorBtn.UseVisualStyleBackColor = true;
+            this.bgrndColorBtn.Click += new System.EventHandler(this.bgrndColorBtn_Click);
+            // 
+            // colorDialog3
+            // 
+            this.colorDialog3.Color = System.Drawing.Color.White;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 628);
+            this.ClientSize = new System.Drawing.Size(898, 638);
             this.Controls.Add(this.procentsLabel);
             this.Controls.Add(this.resetBtn);
-            this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.mazeGroup);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.startGenerationButton);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Tag = "";
@@ -481,6 +560,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pathSizeOption)).EndInit();
             this.mazeGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazeBox)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -519,10 +600,19 @@
         private System.Windows.Forms.CheckBox visitOption;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.CheckBox semptyOption;
         private System.Windows.Forms.Button resetBtn;
         private System.Windows.Forms.Label procentsLabel;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savePictureToolStripMenu;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button bgrndColorBtn;
+        private System.Windows.Forms.ColorDialog colorDialog3;
     }
 }
 

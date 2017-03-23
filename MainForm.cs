@@ -35,7 +35,14 @@ namespace MazeGeneratorGUI
 
             generationSpeed.ValueChanged += GenerationSpeed_ValueChanged;
             refreshTimeout.ValueChanged += RefreshTimeout_ValueChanged;
-            
+
+
+            wallsColorBtn.BackColor = colorDialog1.Color;
+            PathColorBtn.BackColor = colorDialog2.Color;
+            bgrndColorBtn.BackColor = colorDialog3.Color;
+
+
+
 
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             //mazeBox.Paint += new PaintEventHandler(MainForm_Paint); ;
@@ -44,7 +51,7 @@ namespace MazeGeneratorGUI
             mazeSize = new PointF(mazeBox.Size.Height - (int)lineW.Value*2, mazeBox.Size.Width-(int)lineW.Value*2);
             //mazeSize = new PointF(10000 - (int)lineW.Value * 2, 10000 - (int)lineW.Value * 2);
 
-            drawMaze();
+            updateMaze();
         }
 
         private void RefreshTimeout_ValueChanged(object sender, EventArgs e)
@@ -54,8 +61,7 @@ namespace MazeGeneratorGUI
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            drawMaze();
-            mazeBox.Refresh();
+            updateMaze();
         }
 
         private void GenerationSpeed_ValueChanged(object sender, EventArgs e)
@@ -78,6 +84,8 @@ namespace MazeGeneratorGUI
                 procentsLabel.Text = progressBar1.Value.ToString() + "%";
                 generateTimer.Enabled = false;
                 refreshTimer.Enabled = false;
+
+                startGenerationButton.Text = "Start generation";
             }
         }
 
@@ -99,7 +107,7 @@ namespace MazeGeneratorGUI
             Graphics g;
             g = Graphics.FromImage(mazeBitmap);
 
-            g.Clear(Color.White);
+            g.Clear(colorDialog3.Color);
 
             using (Pen myPen = new Pen(colorDialog1.Color, lineWidth))
             {
@@ -198,6 +206,12 @@ namespace MazeGeneratorGUI
             g.Dispose();
         }
 
+        private void updateMaze()
+        {
+            drawMaze();
+            mazeBox.Refresh();
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -213,40 +227,54 @@ namespace MazeGeneratorGUI
             {
                 generateTimer.Enabled = !generateTimer.Enabled;
                 refreshTimer.Enabled = !refreshTimer.Enabled;
+
+                if (generateTimer.Enabled)
+                {
+                    (sender as Button).Text = "Pause generation";
+                }
+                else
+                {
+                    (sender as Button).Text = "Start generation";
+                }
             }
             else
             {
                 maze.generate();
-                drawMaze();
-                mazeBox.Refresh();
+                updateMaze();
             }
         }
 
         private void WallsBtn_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
-            drawMaze();
-            mazeBox.Refresh();
+            (sender as Button).BackColor = colorDialog1.Color;
+            updateMaze();
         }
 
         private void PathColorBtn_Click(object sender, EventArgs e)
         {
             colorDialog2.ShowDialog();
-            drawMaze();
-            mazeBox.Refresh();
-        }
-
-        private void saveBtn_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-            mazeBox.Image.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            (sender as Button).BackColor = colorDialog2.Color;
+            updateMaze();
         }
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
             maze.createEmtpyMaze((int)mazeH.Value, (int)mazeW.Value);
-            drawMaze();
-            mazeBox.Refresh();
+            updateMaze();
+        }
+
+        private void savePictureToolStripMenu_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog();
+            mazeBox.Image.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        private void bgrndColorBtn_Click(object sender, EventArgs e)
+        {
+            colorDialog3.ShowDialog();
+            (sender as Button).BackColor = colorDialog3.Color;
+            updateMaze();
         }
     }
 }
