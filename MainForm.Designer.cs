@@ -69,7 +69,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.label10 = new System.Windows.Forms.Label();
             this.bgrndColorBtn = new System.Windows.Forms.Button();
             this.colorDialog3 = new System.Windows.Forms.ColorDialog();
@@ -484,7 +484,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sourceCodeToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStrip});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -500,11 +500,12 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
             // 
-            // aboutToolStripMenuItem
+            // aboutToolStrip
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStrip.Name = "aboutToolStrip";
+            this.aboutToolStrip.Size = new System.Drawing.Size(154, 22);
+            this.aboutToolStrip.Text = "About";
+            this.aboutToolStrip.Click += new System.EventHandler(this.aboutToolStrip_Click);
             // 
             // label10
             // 
@@ -609,7 +610,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStrip;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button bgrndColorBtn;
         private System.Windows.Forms.ColorDialog colorDialog3;

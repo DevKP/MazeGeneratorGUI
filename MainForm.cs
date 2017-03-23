@@ -276,5 +276,10 @@ namespace MazeGeneratorGUI
             (sender as Button).BackColor = colorDialog3.Color;
             updateMaze();
         }
+
+        private void aboutToolStrip_Click(object sender, EventArgs e)
+        {
+            (new AboutBox1()).ShowDialog(this);
+        }
     }
 }
